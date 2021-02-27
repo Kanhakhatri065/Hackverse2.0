@@ -56,9 +56,10 @@ class apiCaller:
             print("Error: Unknown Job")
         if status_code == -2:
             print("Error: Unknown Host")
-        if status_code == -3: 
+        if status_code == -3:
             print("Too Slow, Already Committed")
 
+
 api = apiCaller()
-while(1):
+while (1):
     api.get_job()
