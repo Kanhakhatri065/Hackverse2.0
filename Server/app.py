@@ -1,3 +1,9 @@
+'''
+    Distributive Compilation API server (app.py)
+    @Author: Divakar Lakhera
+    -> Provides API for front-end and back-end communication
+'''
+
 from flask import Flask
 from flask_cors import CORS
 from flask import jsonify, request

@@ -1,3 +1,9 @@
+'''
+    pendingProcess.py
+    @Author: Divakar Lakhera
+    Contains main data-structures required to maintain order in chaos.
+'''
+
 from random import randint
 from threading import Thread, Lock
 
