@@ -7,12 +7,12 @@ async function js_function(){
 	let api_link="https://distributed-compiler.herokuapp.com/";
 	let api_repo_link= api_link+"api/add/?link="+repo_link;
 
-	document.write("hello "+api_repo_link+"<br>");
+	document.write("");
 	let response = await fetch(api_repo_link);
 
 	if(response.ok){
-		let json=await response.json();
-		let id=json['id'];
+		let data=await response.json();
+		let id=data['id'];
 		alert(id);
 		let api_status=api_link+"api/getStatus/?id="+id;
 		let status_response=await fetch(api_status);
