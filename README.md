@@ -53,6 +53,6 @@ This repository is a new project and is being presented as a hack by Team Babaya
 in Hackverse2.0 hackathon.
 
 ### Members of the Team
-1. Divakar Lakhera
-2. Kanha Khatri
-3. Pankaj Kumar
+1. [Divakar Lakhera](https://github.com/divakar-lakhera)
+2. [Kanha Khatri](https://github.com/Kanhakhatri065)
+3. [Pankaj Kumar](https://github.com/Pankajcoder1)
