@@ -20,8 +20,6 @@ def compiling_github_repo(repo_name, user_id):
 
     for file in dir_listing:
         files_present.append(file)
-    print("files present before compilation")
-    print(files_present)
 
     shell_command = "cd " + str(pathlib.Path().absolute()) + "/" + repo_name + " && make"
     os.system(shell_command)
@@ -35,15 +33,11 @@ def compiling_github_repo(repo_name, user_id):
         else:
             compiled_files.append(file)
 
-    print("Files added to after compiling")
-    print(compiled_files)
-
     if len(compiled_files) == 0:
         return 0
 
     zip_file = ZipFile(str(user_id) + '.zip', 'w')
     for file in compiled_files:
-        print(str(file))
         os.system("cd " + repo_name + "/ && mv " + str(file) + " ../")
         zip_file.write(str(file))
         os.system("mv " + str(file) + " " + repo_name + "/")

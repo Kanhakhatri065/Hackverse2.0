@@ -21,7 +21,10 @@ class apiCaller:
         self.node = ''
 
     def get_job(self):
-        response = requests.get("https://distributed-compiler.herokuapp.com/api/getJob/")
+        is_job_available = 'None'
+        while is_job_available == 'None':
+            response = requests.get("https://distributed-compiler.herokuapp.com/api/getJob/")
+            is_job_available = response.json()['git']
         job = response.json()
         self.git_url = job['git']
         self.user_id = job['id']
@@ -34,17 +37,15 @@ class apiCaller:
         blob.make_public()
         self.zip_file_download_link = blob.public_url
         os.system('rm ' + self.file_name)
-        os.system('rm -rf' + self.repo_name + '/')
+        os.system('rm -rf ' + self.repo_name + '/')
 
-        response = requests.get("https://distributed-compiler.herokuapp.com/api/jobDone/?host="
-                                + self.host_id + "&user=" + self.user_id +
+        status_code = 9
+        while status_code == 9:
+            response = requests.get("https://distributed-compiler.herokuapp.com/api/jobDone/?host="
+                                + str(self.host_id) + "&user=" + self.user_id +
                                 "&down=" + self.zip_file_download_link + "&node=" +
                                 self.node)
-
-        if response.status_code != 200:
-            print("There is some error")
-        else:
-            print("Compilation file returned successfully")
+            status_code = response.json()['code']
 
 
 if __name__ == "__main__":
