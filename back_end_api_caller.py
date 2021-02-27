@@ -10,7 +10,7 @@ import os
 
 class apiCaller:
     def __init__(self):
-        cred = credentials.Certificate("api_key.json")
+        cred = credentials.Certificate("apiKey.json")
         initialize_app(cred, {'storageBucket': "distributed-compiler.appspot.com"})
         self.host_id = 0
         self.git_url = ''
@@ -46,7 +46,19 @@ class apiCaller:
         status_code = 9
         while status_code == 9:
             response = requests.get("https://distributed-compiler.herokuapp.com/api/jobDone/?host="
-                                + str(self.host_id) + "&user=" + self.user_id +
-                                "&down=" + self.zip_file_download_link + "&node=" +
-                                self.node)
-            status_code = response.json()['code']
+                                    + str(self.host_id) + "&user=" + self.user_id +
+                                    "&down=" + self.zip_file_download_link + "&node=" +
+                                    self.node)
+            status_code = int(response.json()['code'])
+        if status_code == 0:
+            print("Done OK..")
+        if status_code == -1:
+            print("Error: Unknown Job")
+        if status_code == -2:
+            print("Error: Unknown Host")
+        if status_code == -3: 
+            print("Too Slow, Already Committed")
+
+api = apiCaller()
+while(1):
+    api.get_job()
