@@ -13,7 +13,6 @@ async function js_function(){
 	if(response.ok){
 		let data=await response.json();
 		let id=data['id'];
-		alert(id);
 		let api_status=api_link+"api/getStatus/?id="+id;
 		let status_response=await fetch(api_status);
 		if(status_response.ok){
@@ -31,11 +30,11 @@ async function js_function(){
 					status=status_text[1][1];
 				}
 			}
+			document.write("Id is: "+id+"<br>")
 			document.write("status is "+status+"<br>");
 		}
 	}
 	else{
 		document.write("HTTPS-Error: "+response.status)
 	}
-	
 }
