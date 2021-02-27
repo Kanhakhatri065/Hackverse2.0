@@ -23,7 +23,7 @@ async function js_function(){
 
 		let fetch_url=api_link+"api/fetch/?user="+id+"&node="+node_value;
 		let second_response=await fetch(fetch_url);
-		if(econd_response.ok){
+		if(second_response.ok){
 				let fetch_data=await second_response.json();
 			let code=fetch_data['code'];
 			while(code!=0){
