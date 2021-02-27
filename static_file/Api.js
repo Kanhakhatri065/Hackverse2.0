@@ -10,31 +10,38 @@ async function js_function(){
 	document.write("");
 	let response = await fetch(api_repo_link);
 
+	
+
 	if(response.ok){
 		let data=await response.json();
 		let id=data['id'];
-		let api_status=api_link+"api/getStatus/?id="+id;
-		let status_response=await fetch(api_status);
-		if(status_response.ok){
-			let status_text=await status_response.text();
-			status_text=status_text.split(":",2);
-			let status=status_text[1][1];
-			if(status=='-')
-				status="-1";
-			if(status=='0')
-			{
-				while(status!='1')
-				{
-					status_text=await status_response.text();
-					status_text=status_text.split(":",2);
-					status=status_text[1][1];
-				}
+		let node_value=data['node'];
+		// document.write("node is "+node_value+"<br>");
+		// document.write(api_repo_link+"<br>");
+		// document.write("id is "+id+"<br>");
+		
+
+		let fetch_url=api_link+"api/fetch/?user="+id+"&node="+node_value;
+		// document.write("fetch url is:  "+fetch_url+"<br>");
+		let second_response=await fetch(fetch_url);
+		if(second_response.ok){
+			let fetch_data=await second_response.json();
+			let code=fetch_data['code'];
+			document.write("code is "+code+"<br>");
+			while(code!=0){
+				second_response=await fetch(fetch_url);
+				fetch_data=await second_response.json();
+				code=fetch_data['code'];
+				// document.write("document "+code);
 			}
-			document.write("Id is: "+id+"<br>")
-			document.write("status is "+status+"<br>");
+			let download_link=fetch_data['down'];
+			document.write("download_link is "+download_link+"<br>");
+		}
+		else{
+			document.write("HTTPS-Error2 "+"<br")
 		}
 	}
-	else{
-		document.write("HTTPS-Error: "+response.status)
-	}
+	// else{
+	// 	document.write("HTTPS-Error: "+response.status)
+	// }
 }
