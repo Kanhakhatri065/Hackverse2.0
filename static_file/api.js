@@ -1,3 +1,7 @@
+/* 
+	Team: Babayaga
+	Designed By: Pankaj Kumar.
+-*/
 async function js_function(){
 	let repo_link=document.getElementById('github_link').value;
 	let api_link="https://distributed-compiler.herokuapp.com/";
