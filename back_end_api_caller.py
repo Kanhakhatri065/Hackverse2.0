@@ -23,7 +23,7 @@ class apiCaller:
 
     def get_job(self):
         is_job_available = 'None'
-
+        print("Waiting For Job..")
         while is_job_available == 'None':
             response = requests.get("https://distributed-compiler.herokuapp.com/api/getJob/")
             is_job_available = response.json()['git']
