@@ -51,6 +51,13 @@ class apiCaller:
         self.user_id = self.job['id']
         self.repo_name = github_repo_downloader.clone_and_compile(self.git_url, self.user_id)
 
+        if self.repo_name == 'no-git-repo':
+            self.node = self.job['node']
+            self.zip_file_download_link = "bad-file"
+            print("This is not a github repository")
+            self.pingServer()
+            return
+
         if self.repo_name == 'xxx-no-comp':
             self.node = self.job['node']
             self.zip_file_download_link = "bad-file"

@@ -52,6 +52,10 @@ def compiling_github_repo(repo_name, user_id):
 def clone_and_compile(repo_link, user_id):
     repo_name = ''
     count_forward_slashes = 0
+
+    if repo_link.find("https://github.com") == -1 and repo_link.find("https://www.github.com") == -1:
+        return 'no-git-repo'
+
     for ch in repo_link:
         if ch == '/':
             count_forward_slashes += 1

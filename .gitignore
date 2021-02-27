@@ -1,4 +1,4 @@
-api_key.json
+apiKey.json
 *.json
 *.pyc
 env/
