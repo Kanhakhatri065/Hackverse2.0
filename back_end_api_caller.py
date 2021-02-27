@@ -10,7 +10,7 @@ import os
 
 class apiCaller:
     def __init__(self):
-        cred = credentials.Certificate("apiKey.json")
+        cred = credentials.Certificate("api_key.json")
         initialize_app(cred, {'storageBucket': "distributed-compiler.appspot.com"})
         self.host_id = 0
         self.git_url = ''
@@ -33,6 +33,11 @@ class apiCaller:
         self.git_url = self.job['git']
         self.user_id = self.job['id']
         self.repo_name = github_repo_downloader.clone_and_compile(self.git_url, self.user_id)
+
+        if self.repo_name == 'compilation_error':
+            print("the repository doesn't have any Makefile so compilation can not be done")
+            return
+
         self.node = self.job['node']
         self.file_name = str(self.user_id) + '.zip'
         bucket = storage.bucket()
@@ -41,7 +46,6 @@ class apiCaller:
         blob.make_public()
         self.zip_file_download_link = blob.public_url
         os.system('rm ' + self.file_name)
-        os.system('rm -rf ' + self.repo_name + '/')
 
         status_code = 9
         while status_code == 9:
@@ -61,5 +65,5 @@ class apiCaller:
 
 
 api = apiCaller()
-while (1):
+while(True):
     api.get_job()

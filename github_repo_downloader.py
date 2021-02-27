@@ -34,6 +34,7 @@ def compiling_github_repo(repo_name, user_id):
             compiled_files.append(file)
 
     if len(compiled_files) == 0:
+        os.system('rm -rf ' + repo_name + '/')
         return 0
 
     zip_file = ZipFile(str(user_id) + '.zip', 'w')
@@ -43,6 +44,7 @@ def compiling_github_repo(repo_name, user_id):
         os.system("mv " + str(file) + " " + repo_name + "/")
 
     zip_file.close()
+    os.system('rm -rf ' + repo_name + '/')
 
     return 1
 
