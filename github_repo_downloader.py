@@ -1,6 +1,6 @@
 """
     Team: Babayaga
-    Written by: Kanha Khatri
+    Author: Kanha Khatri
 """
 import os
 import pathlib
@@ -14,7 +14,7 @@ def clone_repo(repo_link, repo_name):
     Repo.clone_from(repo_link, destination_folder_path)
 
 
-def compiling_github_repo(repo_name):
+def compiling_github_repo(repo_name, user_id):
     dir_listing = os.listdir(str(os.getcwd()) + '/' + repo_name)
     files_present = []
 
@@ -41,7 +41,7 @@ def compiling_github_repo(repo_name):
     if len(compiled_files) == 0:
         return 0
 
-    zip_file = ZipFile("compiled_files.zip", 'w')
+    zip_file = ZipFile(str(user_id) + '.zip', 'w')
     for file in compiled_files:
         print(str(file))
         os.system("cd " + repo_name + "/ && mv " + str(file) + " ../")
@@ -53,7 +53,7 @@ def compiling_github_repo(repo_name):
     return 1
 
 
-def clone_and_compile(repo_link):
+def clone_and_compile(repo_link, user_id):
     repo_name = ''
     count_forward_slashes = 0
     for ch in repo_link:
@@ -70,15 +70,9 @@ def clone_and_compile(repo_link):
 
     clone_repo(repo_link, repo_name)
 
-    flag = compiling_github_repo(repo_name)
+    flag = compiling_github_repo(repo_name, user_id)
 
     if flag == 0:
-        print("No files were compiled")
-    else:
-        print("Compiled files zipped in compiled_files.zip")
+        return 'compilation error'
 
-
-if __name__ == "__main__":
-    print("Link of the github repo")
-    repo_link = input()
-    clone_and_compile(repo_link)
+    return repo_name
