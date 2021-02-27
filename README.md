@@ -1,8 +1,8 @@
 # Hackverse2.0
 
-##Distributed Compiler
+## Distributed Compiler
 
-###Description
+### Description
 Distributed compiler aims to achieve compilation of programs and projects on the distributed network. 
 User needs to push his code and request compilation, so the system will look for listeners of free compilers
 on the system of other users and assign the job to them.
