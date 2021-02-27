@@ -34,7 +34,7 @@ class apiCaller:
         self.user_id = self.job['id']
         self.repo_name = github_repo_downloader.clone_and_compile(self.git_url, self.user_id)
 
-        if self.repo_name == 'compilation_error':
+        if self.repo_name == 'xxx-no-comp':
             print("the repository doesn't have any Makefile so compilation can not be done")
             return
 

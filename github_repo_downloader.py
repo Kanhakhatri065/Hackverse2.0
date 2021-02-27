@@ -69,6 +69,6 @@ def clone_and_compile(repo_link, user_id):
     flag = compiling_github_repo(repo_name, user_id)
 
     if flag == 0:
-        return 'compilation error'
+        return 'xxx-no-comp'
 
     return repo_name
