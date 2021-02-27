@@ -10,7 +10,7 @@ import os
 
 class apiCaller:
     def __init__(self):
-        cred = credentials.Certificate("apiKey.json")
+        cred = credentials.Certificate("api_key.json")
         initialize_app(cred, {'storageBucket': "distributed-compiler.appspot.com"})
         self.host_id = 0
         self.git_url = ''
@@ -19,17 +19,21 @@ class apiCaller:
         self.repo_name = ''
         self.file_name = ''
         self.node = ''
+        self.job = None
 
     def get_job(self):
         is_job_available = 'None'
+
         while is_job_available == 'None':
             response = requests.get("https://distributed-compiler.herokuapp.com/api/getJob/")
             is_job_available = response.json()['git']
-        job = response.json()
-        self.git_url = job['git']
-        self.user_id = job['id']
+            if is_job_available != 'None':
+                self.job = response.json()
+
+        self.git_url = self.job['git']
+        self.user_id = self.job['id']
         self.repo_name = github_repo_downloader.clone_and_compile(self.git_url, self.user_id)
-        self.node = job['node']
+        self.node = self.job['node']
         self.file_name = str(self.user_id) + '.zip'
         bucket = storage.bucket()
         blob = bucket.blob(self.file_name)
@@ -46,8 +50,3 @@ class apiCaller:
                                 "&down=" + self.zip_file_download_link + "&node=" +
                                 self.node)
             status_code = response.json()['code']
-
-
-if __name__ == "__main__":
-    ap = apiCaller()
-    ap.get_job()
